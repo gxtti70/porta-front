@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* Mantenemos tu fondo oscuro como base */
+body {
+  background-color: #09090b;
+}

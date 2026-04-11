@@ -1,0 +1,223 @@
+import { ProjectCard } from '../components/ProjectCard';
+import type { Project } from '../types/types'; // Ruta según tu carpeta types/types.ts
+
+// Importamos los íconos (Agregué FaGoogle para la cert de Google AI)
+import { 
+  FaJava, FaPython, FaReact, FaAngular, FaAmazon, FaGithub, 
+  FaNodeJs, FaVuejs, FaUbuntu, FaDocker, FaGitAlt, FaAward, FaGoogle
+} from 'react-icons/fa';
+import { 
+  SiSpringboot, SiFastapi, SiPostgresql, SiClaude, SiGooglegemini,
+  SiJavascript, SiTypescript, SiTailwindcss
+} from 'react-icons/si';
+
+const techStack = [
+  { name: "Java", icon: FaJava },
+  { name: "Spring Boot", icon: SiSpringboot },
+  { name: "Python", icon: FaPython },
+  { name: "FastAPI", icon: SiFastapi },
+  { name: "JavaScript", icon: SiJavascript },
+  { name: "TypeScript", icon: SiTypescript },
+  { name: "Node.js", icon: FaNodeJs },
+  { name: "React", icon: FaReact },
+  { name: "Vue", icon: FaVuejs },
+  { name: "Angular", icon: FaAngular },
+  { name: "Tailwind", icon: SiTailwindcss },
+  { name: "PostgreSQL", icon: SiPostgresql },
+  { name: "Docker", icon: FaDocker },
+  { name: "Git", icon: FaGitAlt },
+  { name: "GitHub", icon: FaGithub },
+  { name: "Ubuntu", icon: FaUbuntu },
+  { name: "AWS", icon: FaAmazon },
+  { name: "Claude", icon: SiClaude },
+  { name: "Gemini AI", icon: SiGooglegemini }
+];
+
+// NUEVO: Arreglo de Certificaciones para mantener el código limpio
+const certifications = [
+  { title: "Amazon Junior Software Developer", issuer: "AWS", icon: FaAmazon },
+  { title: "Programación con Python", issuer: "Universidad Nacional de Colombia", icon: FaPython },
+  { title: "Python for Everybody", issuer: "University of Michigan", icon: FaPython },
+  { title: "Claude Code in Action", issuer: "Anthropic", icon: SiClaude },
+  { title: "AWS Cloud Practitioner Essentials", issuer: "AWS Entrena", icon: FaAmazon },
+  { title: "Google AI", issuer: "Google", icon: FaGoogle },
+  { title: "Agile Software Development: Scrum", issuer: "Project Management Institute", icon: FaAward },
+  { title: "Habilidades Directivas y Tecnológicas", issuer: "AWS & Bancolombia", icon: FaAward },
+  { title: "Cloud Foundations for Startups", issuer: "AWS Entrena Colombia", icon: FaAmazon }
+];
+
+interface HomeProps {
+  projects: Project[];
+  loading: boolean;
+}
+
+export default function Home({ projects, loading }: HomeProps) {
+  return (
+    <div className="min-h-screen bg-[#111827] text-zinc-100 font-sans selection:bg-cyan-500/30">
+      
+      {/* HEADER */}
+      <header className="max-w-6xl mx-auto px-6 pt-24 pb-12 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="flex items-center gap-6">
+          <div className="w-20 h-20 rounded-full border-2 border-cyan-500 flex items-center justify-center bg-[#1f2937] text-cyan-400 text-3xl font-black font-mono shadow-xl shadow-cyan-900/20">
+            SM
+          </div>
+          <div className="flex flex-col">
+            <h1 className="text-6xl font-black tracking-tighter bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-200 bg-clip-text text-transparent">
+              Santiago Muñoz
+            </h1>
+            <p className="text-zinc-400 text-lg mt-2 font-medium">
+              Junior Full-stack Developer de Medellín.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      {/* VALOR QUE APORTO */}
+      <section className="max-w-6xl mx-auto px-6 mb-16">
+        <div className="border border-zinc-800/50 bg-[#1f2937]/30 p-10 rounded-3xl shadow-lg shadow-black/30">
+          <h2 className="text-3xl font-bold text-cyan-400 mb-6 flex items-center gap-3">
+            <span className="w-10 h-[1px] bg-cyan-800"></span>
+            El valor que aporto
+          </h2>
+          <p className="text-zinc-300 text-lg leading-relaxed max-w-5xl">
+            Mi enfoque va más allá de escribir líneas de código; me dedico a construir soluciones tecnológicas que resuelven problemas reales y generan un impacto tangible. Concibo el software como un motor de transformación, donde la escalabilidad, la seguridad y la experiencia del usuario no son negociables. Aporto valor traduciendo la complejidad del backend y el poder de la <span className="text-cyan-300 font-medium">Inteligencia Artificial</span> en herramientas intuitivas y eficientes.
+          </p>
+        </div>
+      </section>
+
+      {/* SECCIÓN: EXPERIENCIA LABORAL */}
+      <section className="max-w-6xl mx-auto px-6 mb-24">
+        <div className="flex items-center gap-4 mb-12">
+          <h2 className="text-3xl font-bold text-white whitespace-nowrap">Experiencia Laboral</h2>
+          <div className="h-[1px] w-full bg-zinc-800"></div>
+        </div>
+
+        <div className="border-2 border-zinc-800/50 bg-[#1f2937]/30 p-8 rounded-3xl group transition-all duration-300 hover:border-cyan-500/50 hover:bg-[#1f2937]/60">
+          <div className="flex flex-col md:flex-row md:items-start gap-6">
+            
+            {/* Logo TCS SVG oficial */}
+            <div className="flex items-center md:items-start gap-5 md:w-1/3 flex-shrink-0">
+              <div className="w-14 h-14 rounded-full border border-zinc-800/80 bg-[#111827] flex items-center justify-center flex-shrink-0 shadow-inner group-hover:scale-110 group-hover:border-cyan-500/50 group-hover:shadow-cyan-900/40 transition-all duration-300">
+                <svg 
+                  role="img" 
+                  viewBox="0 0 24 24" 
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-8 h-8 text-white group-hover:text-cyan-400 transition-colors duration-300"
+                  fill="currentColor"
+                >
+                  <path d="M24 16.262c0-1.305-.522-2.174-1.827-3.088l-1.785-1.24c-.033-.022-.06-.045-.092-.068-.629-.473-.91-.912-.91-1.43 0-.696.567-1.13 1.371-1.13 1.022 0 1.503.477 2.111.477.479 0 .805-.326.805-.804 0-.348-.174-.631-.631-.848-.718-.348-1.503-.48-2.35-.48-.892 0-1.676.262-2.241.697a.984.984 0 0 0 0-.001 3.64 3.64 0 0 0-.326.283l-.008.01c-.65.695-1.19 1.714-1.623 3.145l-.501 1.652c-.893 2.912-2.306 4.304-4.504 4.304-2.415 0-3.938-1.675-3.938-4.153v.026-.025c0-2.468 1.509-4.159 3.69-4.174l.03-.002a4.857 4.857 0 0 1 2.089.457c.282.13.522.174.74.174.1 0 .192-.017.279-.041.362-.103.592-.408.592-.83 0-.326-.196-.653-.653-.87-.827-.414-1.894-.653-3.046-.653-.86 0-1.653.152-2.359.436-2.117.851-3.452 2.886-3.452 5.545l.002-.024-.001.024c0 .931.169 1.783.479 2.536-.452.985-1.143 1.509-2.046 1.509-1.087 0-1.804-.63-1.806-2.06V9.477h2.546c.588 0 .979-.348.979-.848s-.39-.848-.98-.848H2.09V5.563c0-.653-.435-1.088-1.044-1.088C.435 4.475 0 4.911 0 5.563v10.285c0 2.393 1.37 3.655 3.7 3.655.486.001.97-.08 1.43-.24h.005a3.49 3.49 0 0 0 1.81-1.514c1.034 1.117 2.565 1.775 4.48 1.775.999 0 1.868-.195 2.65-.607h.003c1.588-.827 2.72-2.502 3.503-5.068l.457-1.5a2.984 2.984 0 0 1-.162-.234c.308.492.785.953 1.468 1.43l1.631 1.13c.244.17.463.34.668.51.289.322.378.67.378 1.078 0 .935-.74 1.566-1.807 1.566-1.022 0-1.893-.522-2.371-.522s-.806.325-.806.804c0 .348.174.63.632.848.631.304 1.653.566 2.567.566 1.153 0 2.111-.348 2.785-.957a1.59 1.59 0 0 0 .156-.161A3.104 3.104 0 0 0 24 16.262z"/>
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <h3 className="text-xl font-extrabold tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                  Tata Consultancy Services
+                </h3>
+                <p className="text-sm font-mono text-zinc-400">Medellín (Híbrido)</p>
+              </div>
+            </div>
+
+            {/* Detalles del Rol */}
+            <div className="flex flex-col md:w-2/3 border-t md:border-t-0 md:border-l border-zinc-800/80 pt-6 md:pt-0 md:pl-8">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                <h4 className="text-lg font-bold text-zinc-100">Junior Full-stack Developer</h4>
+                <span className="text-xs font-mono font-medium px-3 py-1.5 bg-cyan-950/40 text-cyan-200 rounded-full border border-cyan-800/40 w-fit">
+                  Mayo 2025 - Octubre 2025
+                </span>
+              </div>
+              
+              <ul className="text-zinc-300 text-sm md:text-base leading-relaxed space-y-3">
+                <li className="flex gap-2">
+                  <span className="text-cyan-500 mt-1">▹</span>
+                  <span>Desempeñé un rol <strong>Full Stack</strong> con responsabilidad sobre el desarrollo frontend, backend y despliegues en la nube, coordinando pruebas con el equipo de QA.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-cyan-500 mt-1">▹</span>
+                  <span>Implementé flujos de autenticación mediante <strong>AWS Cognito</strong> y gestioné archivos en <strong>S3</strong>.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-cyan-500 mt-1">▹</span>
+                  <span>Participé en la migración de controladores a funciones serverless utilizando <strong>Spring Cloud Function</strong>.</span>
+                </li>
+                <li className="flex gap-2">
+                  <span className="text-cyan-500 mt-1">▹</span>
+                  <span>Elaboré el manual técnico y el manual de usuario, asegurando una documentación completa.</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STACK TÉCNICO */}
+      <section className="max-w-6xl mx-auto px-6 mb-24">
+        <h3 className="text-sm font-bold text-zinc-500 mb-6 uppercase tracking-widest flex items-center gap-4">
+          Stack Técnico
+          <div className="h-[1px] flex-grow bg-zinc-800/50"></div>
+        </h3>
+        
+        <div className="flex flex-wrap gap-4">
+          {techStack.map((tech) => (
+            <div 
+              key={tech.name} 
+              className="flex items-center gap-3 px-5 py-3 bg-[#1f2937]/40 rounded-xl border border-zinc-800/50 hover:border-cyan-500/50 hover:bg-[#1f2937] transition-all group cursor-default"
+            >
+              <tech.icon className="w-6 h-6 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+              <span className="text-sm font-mono text-zinc-300 group-hover:text-white transition-colors">
+                {tech.name}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* CERTIFICACIONES DESTACADAS REFACTORIZADAS */}
+      <section className="max-w-6xl mx-auto px-6 mb-24">
+        <div className="flex items-center gap-4 mb-12">
+          <h2 className="text-3xl font-bold text-white whitespace-nowrap">Certificaciones Destacadas</h2>
+          <div className="h-[1px] w-full bg-zinc-800"></div>
+        </div>
+
+        {/* lg:grid-cols-3 pone 3 tarjetas por fila en pantallas grandes */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {certifications.map((cert, index) => {
+            const IconComponent = cert.icon;
+            return (
+              <div key={index} className="bg-[#1f2937]/30 border border-zinc-800/50 p-6 rounded-2xl hover:border-cyan-500/50 hover:bg-[#1f2937]/60 transition-all group flex items-start gap-5">
+                <div className="w-12 h-12 rounded-full bg-[#111827] border border-zinc-700/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:border-cyan-500/50 shadow-inner transition-all duration-300">
+                  <IconComponent className="w-6 h-6 text-cyan-400" />
+                </div>
+                <div className="flex flex-col">
+                  <h3 className="text-white font-bold text-lg group-hover:text-cyan-300 transition-colors leading-tight mb-1">
+                    {cert.title}
+                  </h3>
+                  <p className="text-zinc-400 text-sm font-mono">{cert.issuer}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* PROYECTOS */}
+      <main className="max-w-6xl mx-auto px-6 pb-20">
+        <div className="flex items-center gap-4 mb-12">
+          <h2 className="text-3xl font-bold text-white whitespace-nowrap">Proyectos Seleccionados</h2>
+          <div className="h-[1px] w-full bg-zinc-800"></div>
+        </div>
+
+        {loading ? (
+          <div className="flex items-center gap-2 text-zinc-500 font-mono">
+            <div className="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></div>
+            Sincronizando con el backend...
+          </div>
+        ) : (
+          <div className="grid md:grid-cols-2 gap-8">
+            {projects.map((p) => (
+              <ProjectCard key={p.id} project={p} />
+            ))}
+          </div>
+        )}
+      </main>
+    </div>
+  );
+}
