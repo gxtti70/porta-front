@@ -3,7 +3,7 @@ import type { Project } from '../types/types';
 
 import { 
   FaJava, FaPython, FaReact, FaAngular, FaAmazon, FaGithub, 
-  FaNodeJs, FaVuejs, FaUbuntu, FaDocker, FaGitAlt, FaAward, FaGoogle
+  FaNodeJs, FaVuejs, FaUbuntu, FaDocker, FaGitAlt, FaAward, FaGoogle, FaLinux
 } from 'react-icons/fa';
 import { 
   SiSpringboot, SiFastapi, SiPostgresql, SiClaude, SiGooglegemini,
@@ -24,6 +24,7 @@ const techStack = [
   { name: "Tailwind", icon: SiTailwindcss },
   { name: "PostgreSQL", icon: SiPostgresql },
   { name: "Docker", icon: FaDocker },
+  { name: "Linux", icon: FaLinux },
   { name: "Git", icon: FaGitAlt },
   { name: "GitHub", icon: FaGithub },
   { name: "Ubuntu", icon: FaUbuntu },
