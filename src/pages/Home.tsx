@@ -3,7 +3,7 @@ import type { Project } from '../types/types';
 
 import { 
   FaJava, FaPython, FaReact, FaAngular, FaAmazon, FaGithub, 
-  FaNodeJs, FaVuejs, FaUbuntu, FaDocker, FaGitAlt, FaAward, FaGoogle
+  FaNodeJs, FaVuejs, FaUbuntu, FaDocker, FaGitAlt, FaGoogle
 } from 'react-icons/fa';
 import { 
   SiSpringboot, SiFastapi, SiPostgresql, SiClaude, SiGooglegemini,
@@ -78,7 +78,7 @@ export default function Home({ projects, loading }: HomeProps) {
             El valor que aporto
           </h2>
           <p className="text-zinc-300 text-base md:text-lg leading-relaxed max-w-5xl">
-            Mi enfoque va más allá de escribir líneas de código; me dedico a construir soluciones tecnológicas que resuelven problemas reales y generan un impacto tangible. Aporto valor traduciendo la complejidad del backend y el poder de la <span className="text-cyan-300 font-medium">Inteligencia Artificial</span> en herramientas intuitivas y eficientes.
+            Mi enfoque va más allá de escribir líneas de código; me dedico a construir soluciones tecnológicas que resuelven problemas reales y generan un impacto tangible. Concibo el software como un motor de transformación, donde la escalabilidad, la seguridad y la experiencia del usuario no son negociables. Aporto valor traduciendo la complejidad del backend y el poder de la <span className="text-cyan-300 font-medium">Inteligencia Artificial</span> en herramientas intuitivas y eficientes.
           </p>
         </div>
       </section>
@@ -92,18 +92,22 @@ export default function Home({ projects, loading }: HomeProps) {
 
         <div className="border-2 border-zinc-800/50 bg-[#1f2937]/30 p-6 md:p-8 rounded-3xl group transition-all duration-300 hover:border-cyan-500/50 hover:bg-[#1f2937]/60 shadow-xl shadow-black/20">
           <div className="flex flex-col md:flex-row gap-8">
+            {/* Logo y Empresa: Restaurado el logo SVG de TCS */}
             <div className="flex items-center md:items-start gap-4 md:w-1/3 flex-shrink-0">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-zinc-800/80 bg-[#111827] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:border-cyan-500/50 transition-all duration-300">
-                <FaAward className="text-white group-hover:text-cyan-400 w-6 h-6 md:w-7 md:h-7" />
+              <div className="w-14 h-14 rounded-full border border-zinc-800/80 bg-[#111827] flex items-center justify-center flex-shrink-0 shadow-inner group-hover:scale-110 group-hover:border-cyan-500/50 group-hover:shadow-cyan-900/40 transition-all duration-300">
+                <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 text-white group-hover:text-cyan-400 transition-colors duration-300" fill="currentColor">
+                  <path d="M24 16.262c0-1.305-.522-2.174-1.827-3.088l-1.785-1.24c-.033-.022-.06-.045-.092-.068-.629-.473-.91-.912-.91-1.43 0-.696.567-1.13 1.371-1.13 1.022 0 1.503.477 2.111.477.479 0 .805-.326.805-.804 0-.348-.174-.631-.631-.848-.718-.348-1.503-.48-2.35-.48-.892 0-1.676.262-2.241.697a.984.984 0 0 0 0-.001 3.64 3.64 0 0 0-.326.283l-.008.01c-.65.695-1.19 1.714-1.623 3.145l-.501 1.652c-.893 2.912-2.306 4.304-4.504 4.304-2.415 0-3.938-1.675-3.938-4.153v.026-.025c0-2.468 1.509-4.159 3.69-4.174l.03-.002a4.857 4.857 0 0 1 2.089.457c.282.13.522.174.74.174.1 0 .192-.017.279-.041.362-.103.592-.408.592-.83 0-.326-.196-.653-.653-.87-.827-.414-1.894-.653-3.046-.653-.86 0-1.653.152-2.359.436-2.117.851-3.452 2.886-3.452 5.545l.002-.024-.001.024c0 .931.169 1.783.479 2.536-.452.985-1.143 1.509-2.046 1.509-1.087 0-1.804-.63-1.806-2.06V9.477h2.546c.588 0 .979-.348.979-.848s-.39-.848-.98-.848H2.09V5.563c0-.653-.435-1.088-1.044-1.088C.435 4.475 0 4.911 0 5.563v10.285c0 2.393 1.37 3.655 3.7 3.655.486.001.97-.08 1.43-.24h.005a3.49 3.49 0 0 0 1.81-1.514c1.034 1.117 2.565 1.775 4.48 1.775.999 0 1.868-.195 2.65-.607h.003c1.588-.827 2.72-2.502 3.503-5.068l.457-1.5a2.984 2.984 0 0 1-.162-.234c.308.492.785.953 1.468 1.43l1.631 1.13c.244.17.463.34.668.51.289.322.378.67.378 1.078 0 .935-.74 1.566-1.807 1.566-1.022 0-1.893-.522-2.371-.522s-.806.325-.806.804c0 .348.174.63.632.848.631.304 1.653.566 2.567.566 1.153 0 2.111-.348 2.785-.957a1.59 1.59 0 0 0 .156-.161A3.104 3.104 0 0 0 24 16.262z" />
+                </svg>
               </div>
               <div className="flex flex-col">
                 <h3 className="text-lg md:text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors">
                   Tata Consultancy Services
                 </h3>
-                <p className="text-xs font-mono text-zinc-400 uppercase">Medellín, Antioquia (Híbrido)</p>
+                <p className="text-sm font-mono text-zinc-400">Medellín, Antioquia (Híbrido)</p>
               </div>
             </div>
 
+            {/* Detalles del Rol (Estilo Harvard): Corregidas las negritas */}
             <div className="flex flex-col md:w-2/3 border-t md:border-t-0 md:border-l border-zinc-800/80 pt-6 md:pt-0 md:pl-8">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
                 <h4 className="text-lg font-bold text-zinc-100 italic">Junior Full-stack Developer (Intern)</h4>
@@ -115,19 +119,20 @@ export default function Home({ projects, loading }: HomeProps) {
               <ul className="text-zinc-300 text-sm md:text-base leading-relaxed space-y-4">
                 <li className="flex gap-3">
                   <span className="text-cyan-500 font-bold">▹</span>
-                  <span>**Orquesté** el ciclo de vida completo de desarrollo Full Stack, liderando la creación de componentes escalables y coordinando pruebas con el equipo de **QA** para asegurar despliegues en la nube de alta integridad.</span>
+                  {/* Se han quitado manualmente los asteriscos y se han puesto negritas manuales en JSX */}
+                  <span><strong>Orquesté</strong> el ciclo de vida completo de desarrollo <strong>Full Stack</strong>, liderando la creación de componentes escalables y coordinando pruebas con el equipo de <strong>QA</strong> para garantizar despliegues en la nube de alta integridad.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-cyan-500 font-bold">▹</span>
-                  <span>**Arquitecté** e implementé flujos de autenticación robustos mediante **AWS Cognito** y optimicé el almacenamiento de activos digitales empleando **Amazon S3**.</span>
+                  <span><strong>Arquitecté</strong> e implementé flujos de autenticación robustos mediante <strong>AWS Cognito</strong> y optimicé el almacenamiento de activos digitales empleando <strong>Amazon S3</strong>.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-cyan-500 font-bold">▹</span>
-                  <span>**Ejecuté** la migración estratégica de controladores tradicionales a arquitecturas serverless con **Spring Cloud Function**, incrementando la eficiencia operativa del backend.</span>
+                  <span><strong>Ejecuté</strong> la migración estratégica de controladores tradicionales a arquitecturas serverless con <strong>Spring Cloud Function</strong>, incrementando la eficiencia operativa del backend.</span>
                 </li>
                 <li className="flex gap-3">
                   <span className="text-cyan-500 font-bold">▹</span>
-                  <span>**Autoricé** y elaboré documentación técnica crítica (manuales técnicos y de usuario), reduciendo los tiempos de **onboarding** y mejorando la mantenibilidad a largo plazo del sistema.</span>
+                  <span><strong>Autoricé</strong> y elaboré documentación técnica crítica (manuales técnicos y de usuario), reduciendo los tiempos de <strong>onboarding</strong> y mejorando la mantenibilidad a largo plazo del sistema.</span>
                 </li>
               </ul>
             </div>
