@@ -38,7 +38,7 @@ export const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      // CORRECCIÓN: Se agrega /ai/chat al final de la URL de Render
+      // URL de producción corregida
       const response = await fetch('https://porta-back.onrender.com/ai/chat', {
         method: 'POST',
         headers: {
@@ -78,21 +78,23 @@ export const Chatbot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       
+      {/* Ventana del Chat */}
       <div 
-        className={`mb-4 w-[90vw] sm:w-96 bg-[#1f2937] border-2 border-zinc-800/80 rounded-2xl shadow-2xl shadow-cyan-900/20 flex flex-col overflow-hidden origin-bottom-right transition-all duration-300 ease-in-out ${
+        className={`mb-4 w-[88vw] sm:w-96 bg-[#1f2937] border-2 border-zinc-800/80 rounded-2xl shadow-2xl shadow-cyan-900/20 flex flex-col overflow-hidden origin-bottom-right transition-all duration-300 ease-in-out ${
           isOpen ? 'scale-100 opacity-100 pointer-events-auto' : 'scale-0 opacity-0 pointer-events-none'
         }`}
       >
-        <div className="bg-[#111827] border-b border-zinc-800 p-4 flex justify-between items-center">
+        {/* Header del Chat */}
+        <div className="bg-[#111827] border-b border-zinc-800 p-3 sm:p-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-800 flex items-center justify-center">
               <FaRobot className="text-cyan-400" />
             </div>
             <div>
-              <h3 className="text-zinc-100 font-bold text-sm">Lexi Bot</h3>
-              <p className="text-cyan-500 text-[10px] font-mono flex items-center gap-1">
+              <h3 className="text-zinc-100 font-bold text-xs sm:text-sm">Lexi Bot</h3>
+              <p className="text-cyan-500 text-[9px] sm:text-[10px] font-mono flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
                 En línea
               </p>
@@ -106,14 +108,15 @@ export const Chatbot = () => {
           </button>
         </div>
 
-        <div className="h-80 overflow-y-auto p-4 space-y-4 bg-[#1f2937]/50 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
+        {/* Mensajes */}
+        <div className="h-72 sm:h-80 overflow-y-auto p-4 space-y-4 bg-[#1f2937]/50 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
           {messages.map((msg) => (
             <div 
               key={msg.id} 
               className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div 
-                className={`max-w-[85%] p-3 rounded-2xl text-sm leading-relaxed ${
+                className={`max-w-[85%] p-3 rounded-2xl text-xs sm:text-sm leading-relaxed ${
                   msg.role === 'user' 
                     ? 'bg-cyan-900/40 text-cyan-50 border border-cyan-700/50 rounded-br-none' 
                     : 'bg-[#111827] text-zinc-300 border border-zinc-800/80 rounded-bl-none'
@@ -124,9 +127,8 @@ export const Chatbot = () => {
                 ) : (
                   <ReactMarkdown
                     components={{
-                      p: ({node, ...props}) => <p className="mb-3 last:mb-0" {...props} />,
-                      ul: ({node, ...props}) => <ul className="list-disc ml-5 mb-3 space-y-1" {...props} />,
-                      ol: ({node, ...props}) => <ol className="list-decimal ml-5 mb-3 space-y-1" {...props} />,
+                      p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
+                      ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2 space-y-1" {...props} />,
                       li: ({node, ...props}) => <li className="pl-1" {...props} />,
                       strong: ({node, ...props}) => <strong className="font-bold text-cyan-300" {...props} />,
                       a: ({node, ...props}) => (
@@ -149,44 +151,46 @@ export const Chatbot = () => {
           {isLoading && (
             <div className="flex justify-start">
               <div className="bg-[#111827] border border-zinc-800/80 rounded-2xl rounded-bl-none p-3 flex gap-1.5">
-                <div className="w-2 h-2 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
-                <div className="w-2 h-2 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
-                <div className="w-2 h-2 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+                <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+                <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+                <div className="w-1.5 h-1.5 bg-zinc-500 rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
               </div>
             </div>
           )}
           <div ref={messagesEndRef} />
         </div>
 
+        {/* Input */}
         <div className="p-3 bg-[#111827] border-t border-zinc-800 flex gap-2">
           <input 
             type="text" 
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
-            placeholder="Pregunta algo..."
-            className="flex-grow bg-[#1f2937] border border-zinc-700 rounded-xl px-4 py-2 text-sm text-zinc-100 focus:outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50 transition-all placeholder:text-zinc-600"
+            placeholder="Escribe aquí..."
+            className="flex-grow bg-[#1f2937] border border-zinc-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-zinc-100 focus:outline-none focus:border-cyan-500/50 transition-all placeholder:text-zinc-600"
             disabled={isLoading}
           />
           <button 
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
-            className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-zinc-700 disabled:text-zinc-500 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-colors shadow-lg shadow-cyan-900/20 flex-shrink-0"
+            className="bg-cyan-600 hover:bg-cyan-500 disabled:bg-zinc-700 text-white w-10 h-10 rounded-xl flex items-center justify-center transition-colors flex-shrink-0"
           >
             <FaPaperPlane className="w-3.5 h-3.5" />
           </button>
         </div>
       </div>
 
+      {/* Botón Flotante */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 z-50 ${
+        className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 z-50 ${
           isOpen 
             ? 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700' 
             : 'bg-cyan-600 text-white shadow-cyan-900/50 hover:bg-cyan-500'
         }`}
       >
-        {isOpen ? <FaTimes className="text-xl" /> : <FaCommentDots className="text-2xl" />}
+        {isOpen ? <FaTimes className="text-lg sm:text-xl" /> : <FaCommentDots className="text-xl sm:text-2xl" />}
       </button>
 
     </div>
