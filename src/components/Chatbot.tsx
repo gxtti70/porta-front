@@ -13,7 +13,6 @@ export const Chatbot = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   
-  // Estado inicial con el nombre Lexi Bot
   const [messages, setMessages] = useState<Message[]>([
     { 
       id: '1', 
@@ -39,7 +38,8 @@ export const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('https://porta-back.onrender.com', {
+      // CORRECCIÓN: Se agrega /ai/chat al final de la URL de Render
+      const response = await fetch('https://porta-back.onrender.com/ai/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -65,7 +65,7 @@ export const Chatbot = () => {
       const errorMsg: Message = { 
         id: Date.now().toString(), 
         role: 'bot', 
-        content: "Uy, parece que tengo un cable suelto. Asegúrate de que mi servidor backend (FastAPI) esté encendido. 🔌" 
+        content: "Uy, parece que tengo un cable suelto. Asegúrate de que mi servidor backend esté encendido. 🔌" 
       };
       setMessages(prev => [...prev, errorMsg]);
     } finally {
@@ -91,7 +91,6 @@ export const Chatbot = () => {
               <FaRobot className="text-cyan-400" />
             </div>
             <div>
-              {/* Nombre actualizado aquí */}
               <h3 className="text-zinc-100 font-bold text-sm">Lexi Bot</h3>
               <p className="text-cyan-500 text-[10px] font-mono flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-500 animate-pulse"></span>
@@ -120,7 +119,6 @@ export const Chatbot = () => {
                     : 'bg-[#111827] text-zinc-300 border border-zinc-800/80 rounded-bl-none'
                 }`}
               >
-                {/* Renderizado de Markdown para respuestas ordenadas y enlaces seguros */}
                 {msg.role === 'user' ? (
                   msg.content
                 ) : (
@@ -131,7 +129,6 @@ export const Chatbot = () => {
                       ol: ({node, ...props}) => <ol className="list-decimal ml-5 mb-3 space-y-1" {...props} />,
                       li: ({node, ...props}) => <li className="pl-1" {...props} />,
                       strong: ({node, ...props}) => <strong className="font-bold text-cyan-300" {...props} />,
-                      // --- MAGIA PARA LOS ENLACES ---
                       a: ({node, ...props}) => (
                         <a 
                           {...props} 
