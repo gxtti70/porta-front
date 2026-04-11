@@ -2,11 +2,35 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Project } from '../types/types';
 
+// URL de tu backend en producción
+const BACKEND_URL = "https://porta-back.onrender.com";
+
 export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  // Seguridad: Extraemos la miniatura o usamos un placeholder si no hay imagen
-  const thumbnail = project.images?.split(',')[0] || 'https://via.placeholder.com/600x400?text=Santiago+Muñoz';
+  // 1. Extraemos la primera imagen de la cadena (separada por comas)
+  const rawThumbnail = project.images?.split(',')[0] || '';
+
+  // 2. Función inteligente para formatear la URL de la imagen
+  const formatImageUrl = (url: string) => {
+    if (!url || url.trim() === "") {
+      return 'https://via.placeholder.com/600x400?text=Santiago+Muñoz';
+    }
+    
+    // Si la URL guardada es de localhost (pruebas locales), la cambiamos a Render
+    if (url.includes('localhost:8000')) {
+      return url.replace('http://localhost:8000', BACKEND_URL);
+    }
+    
+    // Si es una ruta relativa que empieza por /static
+    if (url.startsWith('/static')) {
+      return `${BACKEND_URL}${url}`;
+    }
+
+    return url;
+  };
+
+  const thumbnail = formatImageUrl(rawThumbnail);
 
   // Seguridad: Convertimos el stack en array, manejando casos vacíos
   const techList = project.tech_stack?.split(',') || [];
@@ -49,7 +73,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             {project.description}
           </p>
 
-          {/* STACK TÉCNICO: Con seguridad contra nulos */}
+          {/* STACK TÉCNICO */}
           <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
             {techList.map((tech, index) => (
               <span 
