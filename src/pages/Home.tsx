@@ -60,7 +60,6 @@ export default function Home({ projects, loading }: HomeProps) {
             SM
           </div>
           <div className="flex flex-col">
-            {/* Tamaño de fuente fluido: 4xl en móvil, 6xl en desktop */}
             <h1 className="text-4xl md:text-6xl font-black tracking-tighter bg-gradient-to-r from-cyan-300 via-cyan-400 to-cyan-200 bg-clip-text text-transparent">
               Santiago Muñoz
             </h1>
@@ -71,7 +70,7 @@ export default function Home({ projects, loading }: HomeProps) {
         </div>
       </header>
 
-      {/* VALOR QUE APORTO - PADDING AJUSTADO */}
+      {/* VALOR QUE APORTO */}
       <section className="max-w-6xl mx-auto px-6 mb-16">
         <div className="border border-zinc-800/50 bg-[#1f2937]/30 p-6 md:p-10 rounded-3xl shadow-lg shadow-black/30">
           <h2 className="text-2xl md:text-3xl font-bold text-cyan-400 mb-6 flex items-center gap-3">
@@ -79,51 +78,56 @@ export default function Home({ projects, loading }: HomeProps) {
             El valor que aporto
           </h2>
           <p className="text-zinc-300 text-base md:text-lg leading-relaxed max-w-5xl">
-            Mi enfoque va más allá de escribir líneas de código; me dedico a construir soluciones tecnológicas que resuelven problemas reales. Aporto valor traduciendo la complejidad del backend y el poder de la <span className="text-cyan-300 font-medium">Inteligencia Artificial</span> en herramientas intuitivas y eficientes.
+            Mi enfoque va más allá de escribir líneas de código; me dedico a construir soluciones tecnológicas que resuelven problemas reales y generan un impacto tangible. Aporto valor traduciendo la complejidad del backend y el poder de la <span className="text-cyan-300 font-medium">Inteligencia Artificial</span> en herramientas intuitivas y eficientes.
           </p>
         </div>
       </section>
 
-      {/* EXPERIENCIA LABORAL */}
+      {/* SECCIÓN: EXPERIENCIA LABORAL (ESTILO HARVARD) */}
       <section className="max-w-6xl mx-auto px-6 mb-24">
         <div className="flex items-center gap-4 mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-white whitespace-nowrap">Experiencia Laboral</h2>
           <div className="h-[1px] w-full bg-zinc-800"></div>
         </div>
 
-        <div className="border-2 border-zinc-800/50 bg-[#1f2937]/30 p-6 md:p-8 rounded-3xl group transition-all duration-300 hover:border-cyan-500/50 hover:bg-[#1f2937]/60">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex items-center md:items-start gap-4 md:w-1/3">
-              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-zinc-800/80 bg-[#111827] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-all duration-300">
+        <div className="border-2 border-zinc-800/50 bg-[#1f2937]/30 p-6 md:p-8 rounded-3xl group transition-all duration-300 hover:border-cyan-500/50 hover:bg-[#1f2937]/60 shadow-xl shadow-black/20">
+          <div className="flex flex-col md:flex-row gap-8">
+            <div className="flex items-center md:items-start gap-4 md:w-1/3 flex-shrink-0">
+              <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-zinc-800/80 bg-[#111827] flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:border-cyan-500/50 transition-all duration-300">
                 <FaAward className="text-white group-hover:text-cyan-400 w-6 h-6 md:w-7 md:h-7" />
               </div>
               <div className="flex flex-col">
-                <h3 className="text-lg md:text-xl font-extrabold text-white group-hover:text-cyan-300">
+                <h3 className="text-lg md:text-xl font-extrabold text-white group-hover:text-cyan-300 transition-colors">
                   Tata Consultancy Services
                 </h3>
-                <p className="text-xs font-mono text-zinc-400 uppercase">Medellín (Híbrido)</p>
+                <p className="text-xs font-mono text-zinc-400 uppercase">Medellín, Antioquia (Híbrido)</p>
               </div>
             </div>
 
             <div className="flex flex-col md:w-2/3 border-t md:border-t-0 md:border-l border-zinc-800/80 pt-6 md:pt-0 md:pl-8">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
-                <h4 className="text-lg font-bold text-zinc-100 italic">Junior Full-stack Developer</h4>
-                <span className="text-[10px] md:text-xs font-mono font-medium px-3 py-1 bg-cyan-950/40 text-cyan-200 rounded-full border border-cyan-800/40 w-fit">
-                  Mayo 2025 - Octubre 2025
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-6 gap-2">
+                <h4 className="text-lg font-bold text-zinc-100 italic">Junior Full-stack Developer (Intern)</h4>
+                <span className="text-[10px] md:text-xs font-mono font-medium px-3 py-1.5 bg-cyan-950/40 text-cyan-200 rounded-full border border-cyan-800/40 w-fit">
+                  Mayo 2025 – Octubre 2025
                 </span>
               </div>
-              <ul className="text-zinc-300 text-sm md:text-base space-y-3">
-                <li className="flex gap-2">
-                  <span className="text-cyan-500">▹</span>
-                  <span>Rol <strong>Full Stack</strong>: desarrollo frontend, backend y despliegues AWS.</span>
+              
+              <ul className="text-zinc-300 text-sm md:text-base leading-relaxed space-y-4">
+                <li className="flex gap-3">
+                  <span className="text-cyan-500 font-bold">▹</span>
+                  <span>**Orquesté** el ciclo de vida completo de desarrollo Full Stack, liderando la creación de componentes escalables y coordinando pruebas con el equipo de **QA** para asegurar despliegues en la nube de alta integridad.</span>
                 </li>
-                <li className="flex gap-2">
-                  <span className="text-cyan-500">▹</span>
-                  <span>Autenticación con <strong>AWS Cognito</strong> y almacenamiento en <strong>S3</strong>.</span>
+                <li className="flex gap-3">
+                  <span className="text-cyan-500 font-bold">▹</span>
+                  <span>**Arquitecté** e implementé flujos de autenticación robustos mediante **AWS Cognito** y optimicé el almacenamiento de activos digitales empleando **Amazon S3**.</span>
                 </li>
-                <li className="flex gap-2">
-                  <span className="text-cyan-500">▹</span>
-                  <span>Migración serverless con <strong>Spring Cloud Function</strong>.</span>
+                <li className="flex gap-3">
+                  <span className="text-cyan-500 font-bold">▹</span>
+                  <span>**Ejecuté** la migración estratégica de controladores tradicionales a arquitecturas serverless con **Spring Cloud Function**, incrementando la eficiencia operativa del backend.</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="text-cyan-500 font-bold">▹</span>
+                  <span>**Autoricé** y elaboré documentación técnica crítica (manuales técnicos y de usuario), reduciendo los tiempos de **onboarding** y mejorando la mantenibilidad a largo plazo del sistema.</span>
                 </li>
               </ul>
             </div>
@@ -131,7 +135,7 @@ export default function Home({ projects, loading }: HomeProps) {
         </div>
       </section>
 
-      {/* STACK TÉCNICO - WRAP AJUSTADO */}
+      {/* STACK TÉCNICO */}
       <section className="max-w-6xl mx-auto px-6 mb-24">
         <h3 className="text-xs font-bold text-zinc-500 mb-6 uppercase tracking-widest flex items-center gap-4">
           Stack Técnico
@@ -141,31 +145,33 @@ export default function Home({ projects, loading }: HomeProps) {
           {techStack.map((tech) => (
             <div 
               key={tech.name} 
-              className="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-5 md:py-3 bg-[#1f2937]/40 rounded-xl border border-zinc-800/50 hover:border-cyan-500/50 transition-all group"
+              className="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-5 md:py-3 bg-[#1f2937]/40 rounded-xl border border-zinc-800/50 hover:border-cyan-500/50 transition-all group cursor-default"
             >
-              <tech.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 group-hover:scale-110 transition-transform" />
-              <span className="text-xs md:text-sm font-mono text-zinc-300">{tech.name}</span>
+              <tech.icon className="w-5 h-5 md:w-6 md:h-6 text-cyan-400 group-hover:scale-110 transition-transform duration-300" />
+              <span className="text-xs md:text-sm font-mono text-zinc-300 group-hover:text-white transition-colors">
+                {tech.name}
+              </span>
             </div>
           ))}
         </div>
       </section>
 
-      {/* CERTIFICACIONES - GRID RESPONSIVE */}
+      {/* CERTIFICACIONES */}
       <section className="max-w-6xl mx-auto px-6 mb-24">
         <div className="flex items-center gap-4 mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Certificaciones</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-white">Certificaciones Destacadas</h2>
           <div className="h-[1px] w-full bg-zinc-800"></div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {certifications.map((cert, index) => {
             const IconComponent = cert.icon;
             return (
-              <div key={index} className="bg-[#1f2937]/30 border border-zinc-800/50 p-5 rounded-2xl hover:bg-[#1f2937]/60 transition-all flex items-center gap-4">
-                <div className="w-10 h-10 rounded-full bg-[#111827] border border-zinc-700/50 flex items-center justify-center flex-shrink-0">
+              <div key={index} className="bg-[#1f2937]/30 border border-zinc-800/50 p-5 rounded-2xl hover:border-cyan-500/50 hover:bg-[#1f2937]/60 transition-all group flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-[#111827] border border-zinc-700/50 flex items-center justify-center flex-shrink-0 group-hover:scale-110 group-hover:border-cyan-500/50 shadow-inner transition-all duration-300">
                   <IconComponent className="w-5 h-5 text-cyan-400" />
                 </div>
                 <div className="flex flex-col min-w-0">
-                  <h3 className="text-white font-bold text-sm md:text-base truncate group-hover:text-cyan-300">
+                  <h3 className="text-white font-bold text-sm md:text-base truncate group-hover:text-cyan-300 transition-colors">
                     {cert.title}
                   </h3>
                   <p className="text-zinc-500 text-[10px] md:text-xs font-mono">{cert.issuer}</p>
@@ -176,15 +182,16 @@ export default function Home({ projects, loading }: HomeProps) {
         </div>
       </section>
 
-      {/* PROYECTOS - GRID RESPONSIVE */}
+      {/* PROYECTOS */}
       <main className="max-w-6xl mx-auto px-6 pb-24">
         <div className="flex items-center gap-4 mb-10">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Proyectos</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-white whitespace-nowrap">Proyectos Seleccionados</h2>
           <div className="h-[1px] w-full bg-zinc-800"></div>
         </div>
         {loading ? (
           <div className="flex items-center gap-3 text-zinc-500 font-mono animate-pulse">
-            Sincronizando...
+            <div className="w-2 h-2 bg-cyan-500 rounded-full animate-ping"></div>
+            Sincronizando con el backend...
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
