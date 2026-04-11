@@ -70,16 +70,42 @@ export default function Home({ projects, loading }: HomeProps) {
         </div>
       </header>
 
-      {/* VALOR QUE APORTO */}
+      {/* VALOR QUE APORTO - VERSIÓN PROFESIONAL ESTRATÉGICA */}
       <section className="max-w-6xl mx-auto px-6 mb-16">
-        <div className="border border-zinc-800/50 bg-[#1f2937]/30 p-6 md:p-10 rounded-3xl shadow-lg shadow-black/30">
-          <h2 className="text-2xl md:text-3xl font-bold text-cyan-400 mb-6 flex items-center gap-3">
-            <span className="hidden sm:block w-10 h-[1px] bg-cyan-800"></span>
-            El valor que aporto
+        <div className="border border-zinc-800/50 bg-[#1f2937]/30 p-6 md:p-12 rounded-[2.5rem] shadow-2xl shadow-black/40 relative overflow-hidden group">
+          {/* Decoración sutil de fondo */}
+          <div className="absolute -top-24 -right-24 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl group-hover:bg-cyan-500/10 transition-colors duration-700"></div>
+          
+          <h2 className="text-2xl md:text-3xl font-bold text-cyan-400 mb-8 flex items-center gap-3">
+            <span className="hidden sm:block w-12 h-[1px] bg-cyan-800"></span>
+            Propuesta de Valor
           </h2>
-          <p className="text-zinc-300 text-base md:text-lg leading-relaxed max-w-5xl">
-            Mi enfoque va más allá de escribir líneas de código; me dedico a construir soluciones tecnológicas que resuelven problemas reales y generan un impacto tangible. Concibo el software como un motor de transformación, donde la escalabilidad, la seguridad y la experiencia del usuario no son negociables.
-          </p>
+          
+          <div className="grid md:grid-cols-2 gap-10">
+            <div className="space-y-6">
+              <p className="text-zinc-200 text-lg md:text-xl leading-relaxed font-light">
+                Transformo la complejidad técnica en <strong>ventajas competitivas</strong>. Mi enfoque como desarrollador Full Stack se centra en crear soluciones donde la <strong>escalabilidad</strong> y la <strong>experiencia del usuario</strong> convergen.
+              </p>
+              <p className="text-zinc-400 text-sm md:text-base leading-relaxed">
+                A diferencia de un desarrollo convencional, integro metodologías de <strong>Arquitectura RAG</strong> e <strong>Inteligencia Artificial</strong> para dotar a las aplicaciones de una capacidad analítica que optimiza procesos y potencia la toma de decisiones.
+              </p>
+            </div>
+            
+            <div className="bg-[#111827]/50 border border-zinc-800/80 p-6 rounded-2xl flex flex-col justify-center space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
+                <p className="text-sm text-zinc-300"><span className="text-zinc-100 font-bold">Mentalidad Enterprise:</span> Experiencia en despliegues bajo estándares de calidad y seguridad de AWS.</p>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
+                <p className="text-sm text-zinc-300"><span className="text-zinc-100 font-bold">IA Aplicada:</span> Especialista en conectar modelos de lenguaje con datos privados de negocio (RAG).</p>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-cyan-500 shadow-[0_0_8px_rgba(6,182,212,0.8)]"></div>
+                <p className="text-sm text-zinc-300"><span className="text-zinc-100 font-bold">Agilidad Técnica:</span> Capacidad probada para migrar sistemas a arquitecturas serverless eficientes.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
