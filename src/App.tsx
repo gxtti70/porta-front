@@ -13,7 +13,7 @@ function App() {
 
   // Lógica para traer los proyectos del Backend
   useEffect(() => {
-    fetch('http://localhost:8000/projects')
+    fetch('https://porta-back.onrender.com')
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);

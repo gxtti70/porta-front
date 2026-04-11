@@ -39,7 +39,7 @@ export const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/ai/chat', {
+      const response = await fetch('https://porta-back.onrender.com', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
