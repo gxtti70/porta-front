@@ -3,17 +3,35 @@ import { useParams, Link } from 'react-router-dom';
 import type { Project } from '../types/types';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
+// URL del backend en producción para corregir las rutas de imágenes
+const BACKEND_URL = "https://porta-back.onrender.com";
+
 export default function ProjectDetail({ projects }: { projects: Project[] }) {
   const { id } = useParams();
   
-  // Buscamos el proyecto con seguridad
   const project = projects?.find(p => p.id === Number(id));
   
-  // Procesamos las imágenes con un fallback por si no hay ninguna
-  const images = project?.images ? project.images.split(',') : ['https://via.placeholder.com/800x600?text=Sin+Imagen'];
+  // 1. Función para formatear cada imagen del carrusel
+  const formatImageUrl = (url: string) => {
+    if (!url || url.trim() === "") return 'https://via.placeholder.com/800x600?text=Santiago+Muñoz';
+    
+    const cleanUrl = url.trim();
+    if (cleanUrl.includes('localhost:8000')) {
+      return cleanUrl.replace('http://localhost:8000', BACKEND_URL);
+    }
+    if (cleanUrl.startsWith('/static')) {
+      return `${BACKEND_URL}${cleanUrl}`;
+    }
+    return cleanUrl;
+  };
+
+  // 2. Procesamos el array de imágenes con el formateador
+  const images = project?.images 
+    ? project.images.split(',').map(img => formatImageUrl(img)) 
+    : ['https://via.placeholder.com/800x600?text=Sin+Imagen'];
+
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Pantalla de carga o error si no existe el proyecto
   if (!project) {
     return (
       <div className="h-screen flex flex-col items-center justify-center text-white font-mono gap-4 bg-[#111827]">
@@ -30,24 +48,22 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
   return (
     <div className="min-h-screen bg-[#111827] text-zinc-100 flex flex-col lg:h-screen lg:overflow-hidden">
       
-      {/* NAVBAR COMPACTA - Ajustada para móviles */}
       <nav className="px-6 md:px-12 py-4 flex-none mt-16 lg:mt-0">
         <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-cyan-400 transition-colors font-mono text-[10px] uppercase tracking-widest">
           <FaArrowLeft /> Volver al Portafolio
         </Link>
       </nav>
 
-      {/* CONTENIDO PRINCIPAL */}
       <main className="flex-grow px-6 md:px-12 pb-12 lg:pb-6 flex items-center justify-center">
         <div className="max-w-[1400px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 lg:h-full lg:max-h-[85vh]">
           
-          {/* COLUMNA IZQUIERDA: CARRUSEL RESPONSIVE */}
+          {/* CARRUSEL CON URLS CORREGIDAS */}
           <div className="lg:col-span-5 flex flex-col h-[40vh] sm:h-[50vh] lg:h-full gap-4">
             <div className="relative flex-grow rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border-2 border-zinc-800/50 bg-zinc-900/20 shadow-2xl group">
               <img 
-                src={images[currentIndex].trim()} 
-                className="w-full h-full object-contain p-4" 
-                alt="Captura del proyecto"
+                src={images[currentIndex]} 
+                className="w-full h-full object-contain p-4 transition-opacity duration-500" 
+                alt={`${project.title} - vista ${currentIndex + 1}`}
               />
               
               {images.length > 1 && (
@@ -67,7 +83,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
               )}
             </div>
 
-            {/* BOTONES DE ACCIÓN */}
             <div className="grid grid-cols-2 gap-3 flex-none">
               <a href={project.link_repo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-zinc-600 transition-all text-[10px] font-mono uppercase tracking-widest">
                 <FaGithub size={14}/> GitHub
@@ -78,7 +93,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: INFORMACIÓN */}
           <div className="lg:col-span-7 flex flex-col h-full lg:justify-between py-1">
             <div className="space-y-6">
               <header>
@@ -112,13 +126,12 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                     Análisis del Proyecto
                   </h4>
                   <p className="text-zinc-400 text-sm md:text-base leading-relaxed font-light">
-                    {project.explanation || 'Análisis técnico en proceso.'}
+                    {project.explanation || 'Análisis técnico detallado en proceso.'}
                   </p>
                 </section>
               </div>
             </div>
 
-            {/* STACK TÉCNICO */}
             <footer className="pt-6">
               <h4 className="text-zinc-500 font-mono text-[8px] uppercase tracking-widest mb-3">Tecnologías Utilizadas</h4>
               <div className="flex flex-wrap gap-2">
@@ -130,7 +143,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
               </div>
             </footer>
           </div>
-
         </div>
       </main>
     </div>
