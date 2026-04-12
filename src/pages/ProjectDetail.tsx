@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'; // <--- Añadimos useEffect
+import { useState, useEffect } from 'react'; 
 import { useParams, Link } from 'react-router-dom';
 import type { Project } from '../types/types';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -81,7 +81,7 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 <FaGithub size={14}/> GitHub
               </a>
               <a href={project.link_demo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-cyan-600 rounded-xl font-bold text-[10px] uppercase tracking-widest">
-                <FaExternal_linkAlt size={12}/> Demo Live
+                <FaExternalLinkAlt size={12}/> Demo Live
               </a>
             </div>
           </div>
