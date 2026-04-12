@@ -3,8 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import type { Project } from '../types/types';
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// URL del backend en producción para corregir las rutas de imágenes
-const BACKEND_URL = "https://porta-back.onrender.com";
+// Detecta automáticamente si estás en local (.env.local) o en producción (Vercel)
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
 
 export default function ProjectDetail({ projects }: { projects: Project[] }) {
   const { id } = useParams();

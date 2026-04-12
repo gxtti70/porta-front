@@ -8,6 +8,9 @@ interface Message {
   content: string;
 }
 
+// Esta constante detecta si tienes un .env.local con la URL o usa la de Render por defecto
+const API_BASE = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
+
 export const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
@@ -38,8 +41,8 @@ export const Chatbot = () => {
     setIsLoading(true);
 
     try {
-      // URL de producción corregida
-      const response = await fetch('https://porta-back.onrender.com/ai/chat', {
+      // Usamos la constante dinámica API_BASE
+      const response = await fetch(`${API_BASE}/ai/chat`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -80,13 +83,11 @@ export const Chatbot = () => {
   return (
     <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end">
       
-      {/* Ventana del Chat */}
       <div 
         className={`mb-4 w-[88vw] sm:w-96 bg-[#1f2937] border-2 border-zinc-800/80 rounded-2xl shadow-2xl shadow-cyan-900/20 flex flex-col overflow-hidden origin-bottom-right transition-all duration-300 ease-in-out ${
           isOpen ? 'scale-100 opacity-100 pointer-events-auto' : 'scale-0 opacity-0 pointer-events-none'
         }`}
       >
-        {/* Header del Chat */}
         <div className="bg-[#111827] border-b border-zinc-800 p-3 sm:p-4 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-full bg-cyan-950 border border-cyan-800 flex items-center justify-center">
@@ -108,7 +109,6 @@ export const Chatbot = () => {
           </button>
         </div>
 
-        {/* Mensajes */}
         <div className="h-72 sm:h-80 overflow-y-auto p-4 space-y-4 bg-[#1f2937]/50 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent">
           {messages.map((msg) => (
             <div 
@@ -160,7 +160,6 @@ export const Chatbot = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
         <div className="p-3 bg-[#111827] border-t border-zinc-800 flex gap-2">
           <input 
             type="text" 
@@ -181,7 +180,6 @@ export const Chatbot = () => {
         </div>
       </div>
 
-      {/* Botón Flotante */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-12 h-12 sm:w-14 sm:h-14 rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:scale-110 z-50 ${

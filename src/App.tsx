@@ -5,34 +5,36 @@ import Home from './pages/Home';
 import ProjectDetail from './pages/ProjectDetail';
 import { Navbar } from './components/Navbar'; 
 import { Chatbot } from './components/Chatbot'; 
+import './i18n'; // <-- Solo dejamos el diccionario, adiós al botón flotante
+
+// Detecta automáticamente si estás en local (.env.local) o en producción
+const API_BASE = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
 
 function App() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Lógica para traer los proyectos del Backend en Producción
+  // Lógica para traer los proyectos (inteligente con API_BASE)
   useEffect(() => {
-    // CORRECCIÓN: Se agrega /projects al final de la URL
-    fetch('https://porta-back.onrender.com/projects')
+    fetch(`${API_BASE}/projects`)
       .then((res) => {
         if (!res.ok) throw new Error("Error cargando proyectos");
         return res.json();
       })
       .then((data) => {
-        // VALIDACIÓN: Si data no es un array, ponemos un array vacío
         setProjects(Array.isArray(data) ? data : []);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Error conectando al backend:", err);
-        setProjects([]); // Evitamos que sea undefined
+        setProjects([]); 
         setLoading(false);
       });
   }, []);
 
   return (
     <Router>
-      <div className="min-h-screen bg-[#111827] text-zinc-100 font-sans selection:bg-cyan-500/30">
+      <div className="min-h-screen bg-[#111827] text-zinc-100 font-sans selection:bg-cyan-500/30 relative">
         
         <Navbar /> 
 

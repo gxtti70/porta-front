@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Project } from '../types/types';
 
-// URL de tu backend en producción
-const BACKEND_URL = "https://porta-back.onrender.com";
+// Detecta automáticamente si estás en local (.env.local) o en producción (Vercel)
+const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
 
 export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
@@ -17,7 +17,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
       return 'https://via.placeholder.com/600x400?text=Santiago+Muñoz';
     }
     
-    // Si la URL guardada es de localhost (pruebas locales), la cambiamos a Render
+    // Si la URL guardada es de localhost, la cambiamos al BACKEND_URL actual
     if (url.includes('localhost:8000')) {
       return url.replace('http://localhost:8000', BACKEND_URL);
     }

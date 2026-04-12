@@ -1,8 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaWhatsapp, FaLinkedin, FaGithub, FaEnvelope } from 'react-icons/fa';
+import { FaWhatsapp, FaLinkedin, FaGithub, FaEnvelope, FaGlobe } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next'; // <-- Importamos el hook de traducción
 
 export const Navbar = () => {
+  const { i18n } = useTranslation();
+
+  // Función para alternar el idioma
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'es' ? 'en' : 'es';
+    i18n.changeLanguage(newLang);
+  };
+
   const socialLinks = {
     whatsapp: "https://wa.me/573207439176", 
     linkedin: "https://www.linkedin.com/in/santiago-muñoz-sánchez-429ba42b1",
@@ -25,7 +34,7 @@ export const Navbar = () => {
         <div className="flex items-center gap-3 sm:gap-6">
           
           {/* Los iconos ahora se ven en móvil pero con menos espacio */}
-          <div className="flex items-center gap-3 sm:gap-6 border-r border-zinc-800 pr-3 sm:pr-6">
+          <div className="flex items-center gap-3 sm:gap-5 border-r border-zinc-800 pr-3 sm:pr-5">
             <a 
               href={socialLinks.github} 
               target="_blank" 
@@ -51,6 +60,16 @@ export const Navbar = () => {
             >
               <FaEnvelope size={18} className="sm:w-5 sm:h-5" />
             </a>
+
+            {/* BOTÓN DE IDIOMA MINIMALISTA (Agregado aquí) */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-1 sm:gap-1.5 text-zinc-400 hover:text-cyan-400 transition-colors font-mono text-[10px] sm:text-xs font-bold uppercase group ml-1 sm:ml-2"
+              title="Cambiar idioma / Change language"
+            >
+              <FaGlobe className="group-hover:animate-pulse sm:w-4 sm:h-4" size={16} />
+              <span className="w-4 text-center">{i18n.language}</span>
+            </button>
           </div>
 
           {/* BOTÓN WHATSAPP DESTACADO */}
