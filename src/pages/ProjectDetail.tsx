@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react'; 
 import { useParams, Link } from 'react-router-dom';
 import type { Project } from '../types/types';
-import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+// Agregamos FaChevronDown y FaChevronUp para el botón de expandir
+import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
 
 export default function ProjectDetail({ projects }: { projects: Project[] }) {
   const { id } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // NUEVO ESTADO: Controla si los detalles están abiertos en mobile
+  const [showDetails, setShowDetails] = useState(false);
 
-  // AJUSTE 1: Forzar scroll arriba al cargar (Soluciona el 90% de los fallos en mobile)
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [id]);
 
-  // AJUSTE 2: Comparación segura de ID (String con String)
   const project = projects?.find(p => String(p.id) === String(id));
   
   const formatImageUrl = (url: string) => {
@@ -43,10 +45,8 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
   const prevImage = () => setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
 
   return (
-    // Quitamos el h-screen en mobile para que el scroll natural funcione si el texto es largo
     <div className="min-h-screen bg-[#111827] text-zinc-100 flex flex-col lg:h-screen lg:overflow-hidden">
       
-      {/* Margen superior ajustado para mobile para no chocar con la navbar */}
       <nav className="px-6 md:px-12 py-4 flex-none mt-20 lg:mt-0">
         <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-cyan-400 transition-colors font-mono text-[10px] uppercase tracking-widest">
           <FaArrowLeft /> Volver al Portafolio
@@ -77,10 +77,10 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
             </div>
 
             <div className="grid grid-cols-2 gap-3 flex-none">
-              <a href={project.link_repo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-zinc-800/30 rounded-xl border border-zinc-800 text-[10px] font-mono uppercase tracking-widest">
+              <a href={project.link_repo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-zinc-600 transition-all text-[10px] font-mono uppercase tracking-widest">
                 <FaGithub size={14}/> GitHub
               </a>
-              <a href={project.link_demo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-cyan-600 rounded-xl font-bold text-[10px] uppercase tracking-widest">
+              <a href={project.link_demo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-cyan-600 rounded-xl hover:bg-cyan-500 transition-all font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-cyan-900/20">
                 <FaExternalLinkAlt size={12}/> Demo Live
               </a>
             </div>
@@ -100,8 +100,17 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 </h1>
               </header>
 
-              {/* Ajuste de scroll interno para mobile */}
-              <div className="bg-zinc-900/40 border border-zinc-800/50 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] space-y-6 lg:overflow-y-auto lg:max-h-[45vh]">
+              {/* BOTÓN DESPLEGABLE SOLO PARA MOBILE */}
+              <button 
+                onClick={() => setShowDetails(!showDetails)}
+                className="w-full lg:hidden flex items-center justify-between p-4 bg-zinc-800/40 rounded-xl border border-zinc-700/50 text-cyan-400 font-mono text-[10px] uppercase tracking-widest transition-all hover:bg-zinc-800"
+              >
+                <span>{showDetails ? 'Ocultar Detalles' : 'Leer Contexto y Análisis'}</span>
+                {showDetails ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
+              </button>
+
+              {/* CONTENEDOR DE TEXTO: Oculto en mobile a menos que showDetails sea true. Siempre visible en PC (lg:block) */}
+              <div className={`${showDetails ? 'block' : 'hidden'} lg:block bg-zinc-900/40 border border-zinc-800/50 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] space-y-6 lg:overflow-y-auto lg:max-h-[45vh]`}>
                 <section>
                   <h4 className="text-zinc-500 font-mono text-[8px] uppercase tracking-widest mb-2 flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-cyan-500/50"></span>
