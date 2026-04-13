@@ -1,6 +1,6 @@
 import { ProjectCard } from '../components/ProjectCard';
 import type { Project } from '../types/types';
-import { useTranslation } from 'react-i18next'; // <-- IMPORTAMOS EL HOOK DE TRADUCCIÓN
+import { useTranslation } from 'react-i18next'; 
 
 import { 
   FaJava, FaPython, FaReact, FaAngular, FaAmazon, FaGithub, 

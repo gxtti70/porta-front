@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FaWhatsapp, FaLinkedin, FaGithub, FaEnvelope, FaGlobe } from 'react-icons/fa';
-import { useTranslation } from 'react-i18next'; // <-- Importamos el hook de traducción
+import { useTranslation } from 'react-i18next'; 
 
 export const Navbar = () => {
   const { i18n } = useTranslation();

@@ -27,7 +27,7 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const techList = project.tech_stack?.split(',') || [];
 
   return (
-    // AQUÍ ESTÁ LA MAGIA: touch-manipulation y active:scale para respuesta instantánea en mobile
+    //touch-manipulation y active:scale para respuesta instantanea en mobile
     <Link 
       to={`/proyecto/${project.id}`} 
       className="group block h-full touch-manipulation active:scale-[0.98] transition-transform duration-75"
