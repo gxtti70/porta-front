@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'; 
 import { useParams, Link } from 'react-router-dom';
 import type { Project } from '../types/types';
-// Agregamos FaChevronDown y FaChevronUp para el botón de expandir
 import { FaGithub, FaExternalLinkAlt, FaArrowLeft, FaChevronLeft, FaChevronRight, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
@@ -9,9 +8,38 @@ const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender
 export default function ProjectDetail({ projects }: { projects: Project[] }) {
   const { id } = useParams();
   const [currentIndex, setCurrentIndex] = useState(0);
-  
-  // NUEVO ESTADO: Controla si los detalles están abiertos en mobile
   const [showDetails, setShowDetails] = useState(false);
+
+  // --- LÓGICA DE SWIPE (DESLIZAMIENTO EN MOBILE) ---
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+
+  // Distancia mínima para que se considere un "swipe" intencional
+  const minSwipeDistance = 50;
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null); // Reseteamos el final del toque
+    setTouchStart(e.targetTouches[0].clientX); // Guardamos dónde puso el dedo
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX); // Actualizamos mientras arrastra el dedo
+  };
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      nextImage(); // Deslizó hacia la izquierda (Siguiente foto)
+    } else if (isRightSwipe) {
+      prevImage(); // Deslizó hacia la derecha (Foto anterior)
+    }
+  };
+  // -------------------------------------------------
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -57,19 +85,39 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
         <div className="max-w-[1400px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 lg:h-full lg:max-h-[85vh]">
           
           <div className="lg:col-span-5 flex flex-col h-[45vh] sm:h-[50vh] lg:h-full gap-4">
-            <div className="relative flex-grow rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border-2 border-zinc-800/50 bg-zinc-900/20 shadow-2xl group">
+            {/* AQUÍ INYECTAMOS LOS EVENTOS TÁCTILES */}
+            {/* touch-pan-y permite que el usuario haga scroll hacia abajo sin mover las fotos sin querer */}
+            <div 
+              className="relative flex-grow rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border-2 border-zinc-800/50 bg-zinc-900/20 shadow-2xl group touch-pan-y"
+              onTouchStart={onTouchStart}
+              onTouchMove={onTouchMove}
+              onTouchEnd={onTouchEnd}
+            >
               <img 
                 src={images[currentIndex]} 
-                className="w-full h-full object-contain p-4 transition-opacity duration-500" 
+                className="w-full h-full object-contain p-4 transition-opacity duration-500 select-none pointer-events-none" 
                 alt={`${project.title} - vista ${currentIndex + 1}`}
               />
               
+              {/* Indicador de puntitos tipo Instagram (Solo si hay más de 1 imagen) */}
+              {images.length > 1 && (
+                <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
+                  {images.map((_, idx) => (
+                    <div 
+                      key={idx} 
+                      className={`h-1.5 rounded-full transition-all duration-300 ${idx === currentIndex ? 'w-4 bg-cyan-400' : 'w-1.5 bg-zinc-600'}`}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* Botones de PC se mantienen iguales */}
               {images.length > 1 && (
                 <>
-                  <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm">
+                  <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all hidden sm:block sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm z-10">
                     <FaChevronLeft size={12} />
                   </button>
-                  <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm">
+                  <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all hidden sm:block sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm z-10">
                     <FaChevronRight size={12} />
                   </button>
                 </>
@@ -100,7 +148,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 </h1>
               </header>
 
-              {/* BOTÓN DESPLEGABLE SOLO PARA MOBILE */}
               <button 
                 onClick={() => setShowDetails(!showDetails)}
                 className="w-full lg:hidden flex items-center justify-between p-4 bg-zinc-800/40 rounded-xl border border-zinc-700/50 text-cyan-400 font-mono text-[10px] uppercase tracking-widest transition-all hover:bg-zinc-800"
@@ -109,7 +156,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 {showDetails ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
               </button>
 
-              {/* CONTENEDOR DE TEXTO: Oculto en mobile a menos que showDetails sea true. Siempre visible en PC (lg:block) */}
               <div className={`${showDetails ? 'block' : 'hidden'} lg:block bg-zinc-900/40 border border-zinc-800/50 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] space-y-6 lg:overflow-y-auto lg:max-h-[45vh]`}>
                 <section>
                   <h4 className="text-zinc-500 font-mono text-[8px] uppercase tracking-widest mb-2 flex items-center gap-2">
