@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { Project } from '../types/types';
+import { FaArrowRight } from 'react-icons/fa'; // <-- IMPORTAMOS LA FLECHITA
 
 // Detecta automáticamente si estás en local (.env.local) o en producción (Vercel)
 const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender.com';
@@ -8,31 +9,24 @@ const BACKEND_URL = import.meta.env.VITE_API_URL || 'https://porta-back.onrender
 export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
   const [imgLoaded, setImgLoaded] = useState(false);
 
-  // 1. Extraemos la primera imagen de la cadena (separada por comas)
+  // 1. Extraemos la primera imagen de la cadena
   const rawThumbnail = project.images?.split(',')[0] || '';
 
-  // 2. Función inteligente para formatear la URL de la imagen
+  // 2. Función inteligente para formatear la URL
   const formatImageUrl = (url: string) => {
     if (!url || url.trim() === "") {
       return 'https://via.placeholder.com/600x400?text=Santiago+Muñoz';
     }
-    
-    // Si la URL guardada es de localhost, la cambiamos al BACKEND_URL actual
     if (url.includes('localhost:8000')) {
       return url.replace('http://localhost:8000', BACKEND_URL);
     }
-    
-    // Si es una ruta relativa que empieza por /static
     if (url.startsWith('/static')) {
       return `${BACKEND_URL}${url}`;
     }
-
     return url;
   };
 
   const thumbnail = formatImageUrl(rawThumbnail);
-
-  // Seguridad: Convertimos el stack en array, manejando casos vacíos
   const techList = project.tech_stack?.split(',') || [];
 
   return (
@@ -69,7 +63,8 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
             {project.title}
           </h3>
           
-          <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-3">
+          {/* AQUÍ ESTÁ EL AJUSTE PARA MOBILE (line-clamp-2 en cel, 3 en PC) */}
+          <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-4 line-clamp-2 sm:line-clamp-3">
             {project.description}
           </p>
 
@@ -84,6 +79,15 @@ export const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
               </span>
             ))}
           </div>
+
+          {/* NUEVO BOTÓN DE CALL TO ACTION (SOLO MOBILE) */}
+          {/* md:hidden hace que desaparezca en tablets y PC */}
+          <div className="mt-5 md:hidden">
+            <div className="w-full py-2.5 bg-cyan-900/20 border border-cyan-800/50 rounded-xl flex items-center justify-center gap-2 text-cyan-400 font-mono text-[10px] uppercase tracking-widest active:bg-cyan-900/40 transition-colors">
+              Ver Detalles <FaArrowRight size={10} />
+            </div>
+          </div>
+
         </div>
       </div>
     </Link>
