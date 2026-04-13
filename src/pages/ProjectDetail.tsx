@@ -14,16 +14,15 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
 
-  // Distancia mínima para que se considere un "swipe" intencional
   const minSwipeDistance = 50;
 
   const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null); // Reseteamos el final del toque
-    setTouchStart(e.targetTouches[0].clientX); // Guardamos dónde puso el dedo
+    setTouchEnd(null); 
+    setTouchStart(e.targetTouches[0].clientX); 
   };
 
   const onTouchMove = (e: React.TouchEvent) => {
-    setTouchEnd(e.targetTouches[0].clientX); // Actualizamos mientras arrastra el dedo
+    setTouchEnd(e.targetTouches[0].clientX); 
   };
 
   const onTouchEnd = () => {
@@ -34,9 +33,9 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
     const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
-      nextImage(); // Deslizó hacia la izquierda (Siguiente foto)
+      nextImage(); 
     } else if (isRightSwipe) {
-      prevImage(); // Deslizó hacia la derecha (Foto anterior)
+      prevImage(); 
     }
   };
   // -------------------------------------------------
@@ -76,7 +75,7 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
     <div className="min-h-screen bg-[#111827] text-zinc-100 flex flex-col lg:h-screen lg:overflow-hidden">
       
       <nav className="px-6 md:px-12 py-4 flex-none mt-20 lg:mt-0">
-        <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-cyan-400 transition-colors font-mono text-[10px] uppercase tracking-widest">
+        <Link to="/" className="inline-flex items-center gap-2 text-zinc-500 hover:text-cyan-400 transition-colors font-mono text-[10px] uppercase tracking-widest touch-manipulation">
           <FaArrowLeft /> Volver al Portafolio
         </Link>
       </nav>
@@ -85,8 +84,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
         <div className="max-w-[1400px] w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 lg:h-full lg:max-h-[85vh]">
           
           <div className="lg:col-span-5 flex flex-col h-[45vh] sm:h-[50vh] lg:h-full gap-4">
-            {/* AQUÍ INYECTAMOS LOS EVENTOS TÁCTILES */}
-            {/* touch-pan-y permite que el usuario haga scroll hacia abajo sin mover las fotos sin querer */}
             <div 
               className="relative flex-grow rounded-[1.5rem] md:rounded-[2rem] overflow-hidden border-2 border-zinc-800/50 bg-zinc-900/20 shadow-2xl group touch-pan-y"
               onTouchStart={onTouchStart}
@@ -99,7 +96,6 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 alt={`${project.title} - vista ${currentIndex + 1}`}
               />
               
-              {/* Indicador de puntitos tipo Instagram (Solo si hay más de 1 imagen) */}
               {images.length > 1 && (
                 <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2">
                   {images.map((_, idx) => (
@@ -111,13 +107,12 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 </div>
               )}
 
-              {/* Botones de PC se mantienen iguales */}
               {images.length > 1 && (
                 <>
-                  <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all hidden sm:block sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm z-10">
+                  <button onClick={prevImage} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all hidden sm:block sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm z-10 touch-manipulation">
                     <FaChevronLeft size={12} />
                   </button>
-                  <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all hidden sm:block sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm z-10">
+                  <button onClick={nextImage} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/60 p-3 rounded-full hover:bg-cyan-500 transition-all hidden sm:block sm:opacity-0 sm:group-hover:opacity-100 backdrop-blur-sm z-10 touch-manipulation">
                     <FaChevronRight size={12} />
                   </button>
                 </>
@@ -125,10 +120,10 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
             </div>
 
             <div className="grid grid-cols-2 gap-3 flex-none">
-              <a href={project.link_repo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-zinc-600 transition-all text-[10px] font-mono uppercase tracking-widest">
+              <a href={project.link_repo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-zinc-800/30 rounded-xl border border-zinc-800 hover:border-zinc-600 transition-all text-[10px] font-mono uppercase tracking-widest touch-manipulation active:scale-[0.98]">
                 <FaGithub size={14}/> GitHub
               </a>
-              <a href={project.link_demo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-cyan-600 rounded-xl hover:bg-cyan-500 transition-all font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-cyan-900/20">
+              <a href={project.link_demo} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 py-3 bg-cyan-600 rounded-xl hover:bg-cyan-500 transition-all font-bold text-[10px] uppercase tracking-widest shadow-lg shadow-cyan-900/20 touch-manipulation active:scale-[0.98]">
                 <FaExternalLinkAlt size={12}/> Demo Live
               </a>
             </div>
@@ -148,9 +143,10 @@ export default function ProjectDetail({ projects }: { projects: Project[] }) {
                 </h1>
               </header>
 
+              {/* AQUÍ ESTÁ LA OPTIMIZACIÓN DEL BOTÓN DESPLEGABLE */}
               <button 
                 onClick={() => setShowDetails(!showDetails)}
-                className="w-full lg:hidden flex items-center justify-between p-4 bg-zinc-800/40 rounded-xl border border-zinc-700/50 text-cyan-400 font-mono text-[10px] uppercase tracking-widest transition-all hover:bg-zinc-800"
+                className="w-full lg:hidden flex items-center justify-between p-4 bg-zinc-800/40 rounded-xl border border-zinc-700/50 text-cyan-400 font-mono text-[10px] uppercase tracking-widest transition-all hover:bg-zinc-800 touch-manipulation active:scale-[0.98]"
               >
                 <span>{showDetails ? 'Ocultar Detalles' : 'Leer Contexto y Análisis'}</span>
                 {showDetails ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
